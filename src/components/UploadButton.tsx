@@ -7,10 +7,26 @@ import { Button } from "./ui/button";
 import Dropzone from "react-dropzone";
 import { Cloud, File } from "lucide-react";
 import { Progress } from "./ui/progress";
+import { useUploadThing } from "@/lib/uploadthing";
+import { toast } from "sonner";
+import { trpc } from "@/app/_trpc/client";
+import { useRouter } from "next/navigation";
 
 const UploadDropzone = () => {
+  const router = useRouter();
+
   const [isUploading, setIsUploading] = useState(true);
   const [uploadProgress, setUploadProgress] = useState(0);
+
+  const { startUpload } = useUploadThing("pdfUploader");
+
+  const { mutate: startPolling } = trpc.getFile.useMutation({
+    onSuccess: (file) => {
+      router.push(`/dashboard/${file.id}`);
+    },
+    retry: true,
+    retryDelay: 500,
+  });
 
   const startSimulatedProgress = () => {
     setUploadProgress(0);
@@ -31,14 +47,30 @@ const UploadDropzone = () => {
   return (
     <Dropzone
       multiple={false}
-      onDrop={(acceptedFile) => {
+      onDrop={async (acceptedFile) => {
         console.log(acceptedFile);
         setIsUploading(true);
 
         const progressInterval = startSimulatedProgress();
 
+        const res = await startUpload(acceptedFile);
+
+        if (!res) {
+          return toast.error("File didn't upload successfully");
+        }
+
+        const [fileResponse] = res;
+
+        const key = fileResponse?.key;
+
+        if (!key) {
+          return toast.error("File didn't upload successfully");
+        }
+
         clearInterval(progressInterval);
         setUploadProgress(100);
+
+        startPolling({ key });
       }}
     >
       {({ getRootProps, getInputProps, acceptedFiles }) => (
@@ -78,6 +110,12 @@ const UploadDropzone = () => {
                   />
                 </div>
               ) : null}
+              <input
+                {...getInputProps()}
+                type="file"
+                id="dropzone-file"
+                className="hidden"
+              />
             </label>
           </div>
         </div>
