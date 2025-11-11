@@ -1,8 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Scribe
+
+Scribe is a modern, full-stack SaaS (Software as a Service) application built with Next.js. It provides a foundation for building applications that involve file uploads, user authentication, and database interactions.
+
+## Tech Stack
+
+- **Framework**: Next.js (with App Router)
+- **API**: tRPC
+- **ORM**: Prisma
+- **Database**: PostgreSQL
+- **Authentication**: Kinde
+- **Data Fetching**: TanStack Query (React Query)
+- **Styling**: Tailwind CSS
+- **Validation**: Zod
+- **Icons**: Lucide React
+
+## Project Structure
+
+The project is organized into the following directories:
+
+- `src/app`: Contains all the application routes, following the Next.js App Router convention.
+- `src/components`: Houses reusable React components used throughout the application, such as `Dashboard.tsx` and `UploadButton.tsx`.
+- `src/db`: Includes the Prisma schema definition and the database client instance.
+- `src/lib`: For utility functions and helper scripts.
+- `src/trpc`: Defines the tRPC router, procedures, and context. This is where the API endpoints are created.
+- `src/app/_trpc`: Contains the tRPC client setup for client-side data fetching.
 
 ## Getting Started
 
-First, run the development server:
+1.  **Install dependencies:**
+
+    ```bash
+    npm install
+    # or
+    yarn install
+    # or
+    pnpm install
+    ```
+
+2.  **Set up environment variables:**
+
+    Create a `.env` file in the root of the project and add the necessary environment variables, such as your `DATABASE_URL` and Kinde authentication credentials.
+
+3.  **Run database migrations:**
+
+    Apply the database schema to your PostgreSQL database using Prisma.
+
+    ```bash
+    npx prisma db push
+    ```
+
+4.  **Run the development server:**
 
 ```bash
 npm run dev
@@ -10,8 +57,6 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -35,4 +80,4 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-04:43:13
+05:57:41
