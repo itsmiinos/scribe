@@ -1,83 +1,124 @@
 # Scribe
 
-Scribe is a modern, full-stack SaaS (Software as a Service) application built with Next.js. It provides a foundation for building applications that involve file uploads, user authentication, and database interactions.
+[![Scribe Preview](public/dashboard-preview.jpg)](https://your-live-demo-url.com)
+
+**Scribe** is a modern, open-source SaaS platform that allows you to chat with your PDF documents. Upload your files and start asking questions right away. It's built with a full-stack Next.js architecture, leveraging the latest technologies to provide a seamless and interactive experience.
+
+## Features
+
+- **User Authentication**: Secure and easy-to-use authentication powered by Kinde.
+- **File Uploads**: Smooth file uploading experience with Uploadthing, including drag-and-drop support.
+- **PDF Viewing & Rendering**: High-fidelity PDF rendering directly in the browser.
+- **Real-time Chat Interface**: Chat with your documents in real-time.
+- **AI-Powered Insights**: Uses LangChain and OpenAI to understand and answer questions about your documents.
+- **Vector Storage**: Leverages Pinecone to create and store vector embeddings for efficient document searching.
+- **Database**: User and file data is stored in a robust PostgreSQL database managed with Prisma.
+- **Modern UI**: Sleek and responsive user interface built with Tailwind CSS and Radix UI.
 
 ## Tech Stack
 
-- **Framework**: Next.js (with App Router)
-- **API**: tRPC
-- **ORM**: Prisma
-- **Database**: PostgreSQL
-- **Authentication**: Kinde
-- **Data Fetching**: TanStack Query (React Query)
-- **Styling**: Tailwind CSS
-- **Validation**: Zod
-- **Icons**: Lucide React
+### Frameworks & Libraries
+- **[Next.js](https://nextjs.org/)**: React framework for full-stack web applications.
+- **[tRPC](https://trpc.io/)**: End-to-end typesafe APIs.
+- **[React Query](https://tanstack.com/query/latest)**: Data fetching and state management.
+- **[Prisma](https://www.prisma.io/)**: Next-generation ORM for Node.js and TypeScript.
+- **[Kinde](https://kinde.com/)**: Authentication and user management.
+- **[Uploadthing](https://uploadthing.com/)**: File uploads for the modern web.
+- **[LangChain](https://js.langchain.com/)**: Framework for developing applications powered by language models.
+- **[Pinecone](https://www.pinecone.io/)**: Vector database for similarity search.
+- **[Zod](https://zod.dev/)**: TypeScript-first schema validation.
 
-## Project Structure
-
-The project is organized into the following directories:
-
-- `src/app`: Contains all the application routes, following the Next.js App Router convention.
-- `src/components`: Houses reusable React components used throughout the application, such as `Dashboard.tsx` and `UploadButton.tsx`.
-- `src/db`: Includes the Prisma schema definition and the database client instance.
-- `src/lib`: For utility functions and helper scripts.
-- `src/trpc`: Defines the tRPC router, procedures, and context. This is where the API endpoints are created.
-- `src/app/_trpc`: Contains the tRPC client setup for client-side data fetching.
+### Styling
+- **[Tailwind CSS](https://tailwindcss.com/)**: A utility-first CSS framework.
+- **[Radix UI](https://www.radix-ui.com/)**: Unstyled, accessible UI components.
+- **[Lucide React](https://lucide.dev/)**: Beautiful and consistent icons.
 
 ## Getting Started
 
-1.  **Install dependencies:**
+Follow these instructions to get a local copy of Scribe up and running.
 
-    ```bash
+### Prerequisites
+
+- Node.js (v20 or higher recommended)
+- npm, pnpm, yarn, or bun
+- A PostgreSQL database
+- A Pinecone account for vector storage
+- An OpenAI API key
+
+### Installation
+
+1.  **Clone the repository:**
+    ```sh
+    git clone https://github.com/your-username/scribe.git
+    cd scribe
+    ```
+
+2.  **Install dependencies:**
+    ```sh
     npm install
+    # or
+    pnpm install
     # or
     yarn install
     # or
-    pnpm install
+    bun install
     ```
 
-2.  **Set up environment variables:**
+3.  **Set up environment variables:**
 
-    Create a `.env` file in the root of the project and add the necessary environment variables, such as your `DATABASE_URL` and Kinde authentication credentials.
+    Create a `.env` file in the root of your project and add the following variables. You will need to get credentials from Kinde, Uploadthing, Pinecone, and OpenAI.
 
-3.  **Run database migrations:**
+    ```env
+    # Database
+    DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
 
-    Apply the database schema to your PostgreSQL database using Prisma.
+    # Kinde Auth
+    KINDE_CLIENT_ID="..."
+    KINDE_CLIENT_SECRET="..."
+    KINDE_ISSUER_URL="..."
+    KINDE_SITE_URL="http://localhost:3000"
+    KINDE_POST_LOGOUT_REDIRECT_URL="http://localhost:3000"
+    KINDE_POST_LOGIN_REDIRECT_URL="http://localhost:3000/auth-callback"
 
-    ```bash
+    # Uploadthing
+    UPLOADTHING_SECRET="..."
+    UPLOADTHING_APP_ID="..."
+
+    # OpenAI
+    OPENAI_API_KEY="..."
+
+    # Pinecone
+    PINECONE_API_KEY="..."
+    PINECONE_ENVIRONMENT="..."
+    ```
+
+4.  **Push the database schema:**
+
+    This command will sync your Prisma schema with your PostgreSQL database.
+    ```sh
     npx prisma db push
     ```
 
-4.  **Run the development server:**
+5.  **Run the development server:**
+    ```sh
+    npm run dev
+    ```
+    Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Contributing
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
 
-## Learn More
+## License
 
-To learn more about Next.js, take a look at the following resources:
+Distributed under the MIT License. See `LICENSE` for more information.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-07:11:46
+08:22:55
