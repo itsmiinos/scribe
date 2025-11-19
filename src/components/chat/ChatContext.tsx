@@ -156,12 +156,10 @@ export const ChatContextProvider = ({ fileId, children }: Props) => {
     },
     onError: (_, __, context) => {
       setMessage(backupMessage.current);
-      if (context?.previousMessages) {
-        utils.getFileMessage.setInfiniteData(
-          { fileId },
-          context.previousMessages
-        );
-      }
+      utils.getFileMessage.setData(
+        { fileId },
+        { messages: context?.previousMessages ?? [] }
+      );
     },
     onSettled: async () => {
       setIsLoading(false);
